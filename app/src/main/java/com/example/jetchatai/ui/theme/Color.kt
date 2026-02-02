@@ -12,4 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 val LightBackground = Color(0xFFFFFFFF)
 
 val mainColor = Color(0xFF6A53E7)
+val textColor = Color(0xFF9967EA)
 val SolakColor = Color(0xFF645F57)

@@ -3,6 +3,7 @@ package com.example.jetchatai
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,13 +53,16 @@ import androidx.navigation.compose.rememberNavController
 import com.example.jetchatai.ui.theme.LightBackground
 import com.example.jetchatai.ui.theme.SolakColor
 import com.example.jetchatai.ui.theme.mainColor
+import com.example.jetchatai.ui.theme.textColor
+import com.google.firebase.*
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
     navController: NavController
 ) {
-
+    val auth = Firebase.auth
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -234,6 +238,26 @@ fun LoginScreen(
                 Text(
                     text = "Login with Google",
                     fontFamily = jakarta_regular,
+                )
+
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Don't have an account? ",
+                    fontFamily = jakarta_regular,
+                    fontSize = 12.sp
+                )
+                Text(
+                    text = "Register",
+                    color = textColor,
+                    modifier = Modifier.clickable(onClick = {}),
+                    fontFamily = jakarta_regular,
+                    fontSize = 12.sp
                 )
             }
 

@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.jetchatai" />
+                  <option name="mobileSdkAppId" value="1:1088243272980:android:3d39740839931bab684601" />
+                  <option name="projectId" value="jetchat-5d075" />
+                  <option name="projectNumber" value="1088243272980" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

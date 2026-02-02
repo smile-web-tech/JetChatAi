@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1088243272980",
+    "project_id": "jetchat-5d075",
+    "storage_bucket": "jetchat-5d075.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088243272980:android:3d39740839931bab684601",
+        "android_client_info": {
+          "package_name": "com.example.jetchatai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088243272980-ogtaod4b2ue7aa515isdhn249010b6v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jetchatai",
+            "certificate_hash": "f6f2da2d176683eae607e267ce3fa612d55b4f3d"
+          }
+        },
+        {
+          "client_id": "1088243272980-tqb5684a52e6gmvru682cbjc0kn4kth0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS8kJqGtrRbL40zBpHawo4FjSqNBTqZco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088243272980-tqb5684a52e6gmvru682cbjc0kn4kth0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
