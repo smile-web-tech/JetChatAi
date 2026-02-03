@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -60,12 +61,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: AuthViewModel
 ) {
-    val auth = Firebase.auth
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
+
+    val loading by viewModel.isLoading
+    val error by viewModel.errorMessage
 
     Column(
         modifier = Modifier
@@ -95,6 +99,15 @@ fun LoginScreen(
             color = SolakColor
         )
 
+        if(error != null) {
+            Text(
+                text = error!!,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+
         Column(
             modifier = Modifier.padding(top = 24.dp)
         ) {
@@ -105,7 +118,7 @@ fun LoginScreen(
                 shape = RoundedCornerShape(12.dp),
                 placeholder = { Text(text = "Enter Email")},
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.AccountBox, contentDescription = "null")
+                    Icon(imageVector = Icons.Default.Mail, contentDescription = "null")
                 },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedLeadingIconColor = mainColor,
@@ -166,19 +179,32 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
+                    viewModel.login(email, password) {
+                        navController.navigate("chat_screen") {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
                 },
+                enabled = !loading,
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = mainColor,
                 )
             ) {
-                Text(
-                    text = "Login",
-                    fontSize = 16.sp,
-                    fontFamily = jakarta_regular
-                )
-
+                if(loading) {
+                    androidx.compose.material3.CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+                } else {
+                    Text(
+                        text = "Login",
+                        fontSize = 16.sp,
+                        fontFamily = jakarta_regular
+                    )
+                }
             }
 
             Row(
@@ -253,9 +279,11 @@ fun LoginScreen(
                     fontSize = 12.sp
                 )
                 Text(
-                    text = "Register",
+                    text = "Sign Up!",
                     color = textColor,
-                    modifier = Modifier.clickable(onClick = {}),
+                    modifier = Modifier.clickable(onClick = {
+                        navController.navigate("register")
+                    }),
                     fontFamily = jakarta_regular,
                     fontSize = 12.sp
                 )
@@ -267,13 +295,13 @@ fun LoginScreen(
     }
 
 }
-
-@Composable
-@Preview
-fun LoginScreenPreview() {
-    val context = LocalContext.current
-    val fakeNavController = rememberNavController()
-    LoginScreen(
-        navController = fakeNavController
-    )
-}
+//
+//@Composable
+//@Preview
+//fun LoginScreenPreview() {
+//    val context = LocalContext.current
+//    val fakeNavController = rememberNavController()
+//    LoginScreen(
+//        navController = fakeNavController
+//    )
+//}
