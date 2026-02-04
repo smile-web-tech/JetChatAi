@@ -1,4 +1,4 @@
-package com.example.jetchatai
+package com.example.jetchatai.screens
 
 import android.widget.Toast
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,8 +42,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.jetchatai.R
 import com.example.jetchatai.ui.theme.LightBackground
 import com.example.jetchatai.ui.theme.mainColor
+import com.example.jetchatai.viewmodels.AuthViewModel
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VerificationScreen(

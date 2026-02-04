@@ -1,4 +1,4 @@
-package com.example.jetchatai
+package com.example.jetchatai.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -16,22 +16,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,24 +37,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.jetchatai.R
+import com.example.jetchatai.jakarta_bold
+import com.example.jetchatai.jakarta_regular
 import com.example.jetchatai.ui.theme.LightBackground
 import com.example.jetchatai.ui.theme.SolakColor
 import com.example.jetchatai.ui.theme.mainColor
 import com.example.jetchatai.ui.theme.textColor
-import com.google.firebase.*
-import com.google.firebase.auth.auth
-import kotlinx.coroutines.launch
+import com.example.jetchatai.viewmodels.AuthViewModel
 
 @Composable
 fun LoginScreen(
@@ -72,26 +67,26 @@ fun LoginScreen(
     val error by viewModel.errorMessage
 
     Column(
-        modifier = Modifier
+        modifier = Modifier.Companion
             .fillMaxSize()
             .padding(16.dp)
             .background(color = LightBackground),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Companion.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.Companion.size(24.dp))
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo",
-            modifier = Modifier.padding(32.dp)
+            modifier = Modifier.Companion.padding(32.dp)
         )
 
         Text(
             text = "Welcome Back!",
             fontFamily = jakarta_bold,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Companion.Bold,
             fontSize = 26.sp
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.Companion.height(10.dp))
         Text(
             text = "Enter your login details",
             fontFamily = jakarta_regular,
@@ -99,52 +94,52 @@ fun LoginScreen(
             color = SolakColor
         )
 
-        if(error != null) {
+        if (error != null) {
             Text(
                 text = error!!,
-                color = Color.Red,
+                color = Color.Companion.Red,
                 fontSize = 12.sp,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.Companion.padding(top = 8.dp)
             )
         }
 
         Column(
-            modifier = Modifier.padding(top = 24.dp)
+            modifier = Modifier.Companion.padding(top = 24.dp)
         ) {
             OutlinedTextField(
                 value = email,
-                onValueChange = {email = it },
-                modifier = Modifier.fillMaxWidth(),
+                onValueChange = { email = it },
+                modifier = Modifier.Companion.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                placeholder = { Text(text = "Enter Email")},
+                placeholder = { Text(text = "Enter Email") },
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Mail, contentDescription = "null")
                 },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedLeadingIconColor = mainColor,
-                    unfocusedLeadingIconColor = Color.Gray,
+                    unfocusedLeadingIconColor = Color.Companion.Gray,
                     focusedLabelColor = mainColor,
-                    unfocusedLabelColor = Color.Gray,
+                    unfocusedLabelColor = Color.Companion.Gray,
 
-                )
+                    )
 
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.Companion.height(16.dp))
             OutlinedTextField(
                 value = password,
-                onValueChange = {password = it },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                placeholder = { Text(text = "Enter Password")},
+                onValueChange = { password = it },
+                modifier = Modifier.Companion.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                placeholder = { Text(text = "Enter Password") },
 
-                visualTransformation = if(isPasswordVisible) {
-                    VisualTransformation.None
+                visualTransformation = if (isPasswordVisible) {
+                    VisualTransformation.Companion.None
                 } else {
                     PasswordVisualTransformation()
                 },
 
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Companion.Password),
 
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Lock, contentDescription = "null")
@@ -158,7 +153,7 @@ fun LoginScreen(
                     }
                     val description = if (isPasswordVisible) "Hide password" else "Show password"
 
-                    IconButton(onClick = {isPasswordVisible = !isPasswordVisible}) {
+                    IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                         Icon(
                             imageVector = iconImage,
                             contentDescription = description
@@ -170,13 +165,13 @@ fun LoginScreen(
                 colors = OutlinedTextFieldDefaults.colors(
 
                     focusedLeadingIconColor = mainColor,
-                    unfocusedLeadingIconColor = Color.Gray,
+                    unfocusedLeadingIconColor = Color.Companion.Gray,
                     focusedLabelColor = mainColor,
-                    unfocusedLabelColor = Color.Gray,
+                    unfocusedLabelColor = Color.Companion.Gray,
                 ),
 
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+                )
+            Spacer(modifier = Modifier.Companion.height(16.dp))
             Button(
                 onClick = {
                     viewModel.login(email, password) {
@@ -187,16 +182,16 @@ fun LoginScreen(
                     }
                 },
                 enabled = !loading,
-                modifier = Modifier.fillMaxWidth().height(50.dp),
-                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.Companion.fillMaxWidth().height(50.dp),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = mainColor,
                 )
             ) {
-                if(loading) {
-                    androidx.compose.material3.CircularProgressIndicator(
-                        color = Color.White,
-                        modifier = Modifier.size(24.dp)
+                if (loading) {
+                    CircularProgressIndicator(
+                        color = Color.Companion.White,
+                        modifier = Modifier.Companion.size(24.dp)
                     )
                 } else {
                     Text(
@@ -208,58 +203,55 @@ fun LoginScreen(
             }
 
             Row(
-                modifier = Modifier
+                modifier = Modifier.Companion
                     .fillMaxWidth()
-                    .padding(vertical = 16.dp), 
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(vertical = 16.dp),
+                verticalAlignment = Alignment.Companion.CenterVertically
             ) {
                 HorizontalDivider(
-                    modifier = Modifier.weight(1f),
-                    color = Color.LightGray,
+                    modifier = Modifier.Companion.weight(1f),
+                    color = Color.Companion.LightGray,
                     thickness = 1.dp
                 )
-                
+
                 Text(
                     text = "Or",
-                    color = Color.Gray,
+                    color = Color.Companion.Gray,
                     fontFamily = jakarta_regular,
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.Companion.padding(horizontal = 8.dp)
                 )
 
                 HorizontalDivider(
-                    modifier = Modifier.weight(1f),
-                    color = Color.LightGray,
+                    modifier = Modifier.Companion.weight(1f),
+                    color = Color.Companion.LightGray,
                     thickness = 1.dp
                 )
             }
-
-
             Button(
                 onClick = {},
-                modifier = Modifier
+                modifier = Modifier.Companion
                     .fillMaxWidth()
-                    .height(50.dp)
-                ,
+                    .height(50.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Black
+                    containerColor = Color.Companion.White,
+                    contentColor = Color.Companion.Black
                 ),
-                shape = RoundedCornerShape(12.dp),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                 border = BorderStroke(
                     width = 1.dp,
-                    color = Color.LightGray
+                    color = Color.Companion.LightGray
                 )
             ) {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.Companion.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Image(
                         painter = painterResource(R.drawable.google),
                         contentDescription = "Google logo",
-                        modifier = Modifier.size(24.dp)
-                        )
-                    Spacer(modifier = Modifier.size(12.dp))
+                        modifier = Modifier.Companion.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.Companion.size(12.dp))
                 }
                 Text(
                     text = "Login with Google",
@@ -267,10 +259,10 @@ fun LoginScreen(
                 )
 
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.Companion.height(16.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.Companion.fillMaxWidth(),
+                verticalAlignment = Alignment.Companion.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
                 Text(
@@ -281,7 +273,7 @@ fun LoginScreen(
                 Text(
                     text = "Sign Up!",
                     color = textColor,
-                    modifier = Modifier.clickable(onClick = {
+                    modifier = Modifier.Companion.clickable(onClick = {
                         navController.navigate("register")
                     }),
                     fontFamily = jakarta_regular,
@@ -295,13 +287,3 @@ fun LoginScreen(
     }
 
 }
-//
-//@Composable
-//@Preview
-//fun LoginScreenPreview() {
-//    val context = LocalContext.current
-//    val fakeNavController = rememberNavController()
-//    LoginScreen(
-//        navController = fakeNavController
-//    )
-//}

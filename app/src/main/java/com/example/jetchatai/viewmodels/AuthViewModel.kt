@@ -1,4 +1,4 @@
-package com.example.jetchatai
+package com.example.jetchatai.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

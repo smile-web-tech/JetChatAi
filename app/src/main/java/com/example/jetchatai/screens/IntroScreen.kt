@@ -1,4 +1,4 @@
-package com.example.jetchatai
+package com.example.jetchatai.screens
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -21,7 +21,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +43,9 @@ import com.example.jetchatai.ui.theme.LightBackground
 import com.example.jetchatai.ui.theme.mainColor
 import kotlinx.coroutines.launch
 import androidx.navigation.compose.rememberNavController
+import com.example.jetchatai.R
+import com.example.jetchatai.jakarta_bold
+import com.example.jetchatai.jakarta_regular
 
 @Composable
 fun IntroScreen(
