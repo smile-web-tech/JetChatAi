@@ -35,8 +35,8 @@ A modern, native Android application designed to provide an intelligent and flui
 
 - [x] **Phase 1:** Project initialization and folder structure.
 - [x] **Phase 2:** UI Design (Intro Screens, Login, and Chat Interface).
-- [ ] **Phase 3:** Integration with AI Model API (Gemini/OpenAI).
-- [ ] **Phase 4:** Firebase Authentication & User Data Sync.
+- [x] **Phase 3:** Firebase Authentication & User Data Sync.
+- [ ] **Phase 4:** Integration with AI Model API (Gemini/OpenAI).
 - [ ] **Phase 5:** Local chat history and offline mode.
 - [ ] **Phase 6:** Voice-to-text and multi-modal support.
 
