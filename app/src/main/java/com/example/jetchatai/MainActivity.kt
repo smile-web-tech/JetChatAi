@@ -30,9 +30,10 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val sharedViewModel: ChatViewModel = viewModel()
             val authViewModel: AuthViewModel = viewModel()
-
+            val chatViewModel: ChatViewModel = viewModel()
             val startDestination = if (authViewModel.currentUser != null) {
                 "chat_screen"
+
             } else {
                 "welcome"
             }
@@ -94,7 +95,11 @@ class MainActivity : ComponentActivity() {
                     enterTransition = { EnterTransition.None },
                     exitTransition = { ExitTransition.None }
                 ) {
-                    ChatScreen(navController = navController)
+                    // Pass the sharedViewModel here to keep messages alive
+                    ChatScreen(
+                        navController = navController,
+                        viewModel = sharedViewModel
+                    )
                 }
 
                 composable(
