@@ -1,6 +1,9 @@
 package com.example.jetchatai.viewmodels
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jetchatai.BuildConfig
@@ -10,18 +13,17 @@ import kotlinx.coroutines.launch
 class ChatViewModel: ViewModel() {
 
     private val generativeModel = GenerativeModel(
-        // Ensure this is a standard hyphen: gemini-1.5-flash
         modelName = "gemini-2.5-flash",
-        apiKey = BuildConfig.API_KEY
+        apiKey = BuildConfig.API_KEY  //Paste there your API_KEY from google
     )
 
     private val chatSession = generativeModel.startChat()
 
     val messageList = mutableStateListOf<MessageModel>()
-
+    var isLoading by mutableStateOf(false)
     fun sendMessage(userInput: String){
         if (userInput.isBlank()) return
-
+        isLoading = true
         messageList.add(MessageModel(userInput, "user"))
 
         viewModelScope.launch {
@@ -35,6 +37,8 @@ class ChatViewModel: ViewModel() {
             } catch (e: Exception) {
                 // This catches network issues or API limit errors
                 messageList.add(MessageModel("Sorry, I encountered an error: ${e.localizedMessage}", "model"))
+            }finally {
+                isLoading = false // Stop thinking
             }
         }
     }

@@ -1,9 +1,14 @@
 package com.example.jetchatai
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
@@ -21,6 +26,7 @@ import com.example.jetchatai.screens.RegisterScreen
 import com.example.jetchatai.screens.VerificationScreen
 import com.example.jetchatai.viewmodels.AuthViewModel
 import com.example.jetchatai.viewmodels.ChatViewModel
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +37,7 @@ class MainActivity : ComponentActivity() {
             val sharedViewModel: ChatViewModel = viewModel()
             val authViewModel: AuthViewModel = viewModel()
             val chatViewModel: ChatViewModel = viewModel()
+
             val startDestination = if (authViewModel.currentUser != null) {
                 "chat_screen"
 
