@@ -3,6 +3,7 @@ package com.example.jetchatai.viewmodels
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jetchatai.BuildConfig
 import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
 
@@ -11,7 +12,7 @@ class ChatViewModel: ViewModel() {
     private val generativeModel = GenerativeModel(
         // Ensure this is a standard hyphen: gemini-1.5-flash
         modelName = "gemini-2.5-flash",
-        apiKey = "AIzaSyAfKfVGBu3wXhKrTXpCa2yTt4Mzb4IBmVs" // PLEASE GENERATE A NEW KEY!
+        apiKey = BuildConfig.API_KEY
     )
 
     private val chatSession = generativeModel.startChat()
