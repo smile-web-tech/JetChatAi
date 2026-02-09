@@ -1,71 +1,59 @@
 package com.example.jetchatai.viewmodels
 
-import android.R.attr.content
-import android.R.id.content
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.compose.runtime.*
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jetchatai.BuildConfig
-import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.content
+import com.example.jetchatai.data.GroqService
+import com.example.jetchatai.viewmodels.MessageModel
 import kotlinx.coroutines.launch
 
-class ChatViewModel: ViewModel() {
-
-    private val generativeModel = GenerativeModel(
-        modelName = "gemini-2.5-flash",
-        apiKey = BuildConfig.API_KEY,  //Paste there your API_KEY from google
-        systemInstruction = content {
-            text("""
-            You are 'JetChat', the official AI Portfolio Assistant for Ysmayyl Mammetgeldiyev. 
-            Your primary goal is to represent Ysmayyl to recruiters and peers.
-
-            ABOUT YSMAYYL:
-            - Education: Studying CS at Eötvös Loránd University (ELTE), Budapest.
-            - Role: Web & Software Developer with experience at IOSPO and Gunbatar Shapagy.
-            - Tech Stack: Kotlin, Jetpack Compose, Python, Java, and Laravel.
-            - Projects: Education Center Management systems and Science Olympiad portals, Fully functional e-commerce android application, and personal AI assistant.
-
-            YOUR PERSONA:
-            - Professional but youthful (mention 'Lágymányos' or the 'IK building' when talking about uni).
-            - Enthusiastic about Kotlin/Compose.
-            - Always end with a 'Pro-tip' that highlights a coding best practice Ysmayyl follows.
-
-            RULES:
-            1. If someone asks who you are, say: "I'm JetChat, Ysmayyl's AI double! 🚀"
-            2. For non-tech questions, redirect them to Ysmayyl's problem-solving skills.
-            3. Use 🚀, 💻, and 🎓.
-        """.trimIndent())
-        }
-    )
-
-
-
-    private val chatSession = generativeModel.startChat()
-
+class ChatViewModel(application: Application) : AndroidViewModel(application) {
+    private val groqService = GroqService(BuildConfig.API_KEY)
     val messageList = mutableStateListOf<MessageModel>()
     var isLoading by mutableStateOf(false)
-    fun sendMessage(userInput: String){
+
+    private val localKnowledge: String by lazy {
+        application.assets.open("ysm_knowledge.txt").bufferedReader().use { it.readText() }
+    }
+
+    fun sendMessage(userInput: String) {
         if (userInput.isBlank()) return
+
+        val userMessage = MessageModel(userInput, "user")
+        messageList.add(userMessage)
         isLoading = true
-        messageList.add(MessageModel(userInput, "user"))
 
         viewModelScope.launch {
             try {
-                // The SDK uses the chatSession to maintain context
-                val response = chatSession.sendMessage(userInput)
+                val systemInstructions = """
+                    You are 'JetChat', the official AI assistant for Ysmayyl Mammetgeldiyev.
+                    Ysmayyl is a CS student at ELTE with experience in Cybersecurity and Linux.
+                    
+                    KNOWLEDGE BASE:
+                    $localKnowledge
+                    
+                    RULES:
+                    - Use the provided knowledge to answer questions about Ysmayyl.
+                    - If a fact is missing, give his email: smiletechweb@gmail.com.
+                    - Be witty and end with a 'Pro-tip' 🚀.
+                """.trimIndent()
 
-                response.text?.let { resultText ->
-                    messageList.add(MessageModel(resultText, "model"))
-                }
+                val apiMessages = mutableListOf<MessageModel>()
+
+                apiMessages.add(MessageModel(systemInstructions, "user"))
+                apiMessages.add(MessageModel("Understood. I am JetChat and I will represent Ysmayyl.", "model"))
+
+                apiMessages.addAll(messageList)
+
+                val result = groqService.getResponse(apiMessages)
+                messageList.add(MessageModel(result, "model"))
+
             } catch (e: Exception) {
-
-                messageList.add(MessageModel("Sorry, I encountered an error: ${e.localizedMessage}", "model"))
-            }finally {
-                isLoading = false // Stop thinking
+                messageList.add(MessageModel("Error connecting to Groq API: ${e.message}", "model"))
+            } finally {
+                isLoading = false
             }
         }
     }

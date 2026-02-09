@@ -55,6 +55,12 @@ android {
     }
 }
 dependencies {
+    implementation("com.airbnb.android:lottie-compose:6.0.0")
+    implementation("org.json:json:20231013")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
     implementation("com.mikepenz:multiplatform-markdown-renderer-m3:0.33.0")
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))

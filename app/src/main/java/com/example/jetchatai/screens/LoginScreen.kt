@@ -73,7 +73,7 @@ fun LoginScreen(
             .background(color = LightBackground),
         horizontalAlignment = Alignment.Companion.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.Companion.size(24.dp))
+        Spacer(modifier = Modifier.size(24.dp))
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo",

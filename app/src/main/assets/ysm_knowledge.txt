@@ -1,0 +1,18 @@
+[KNOWLEDGE BASE: YSMAYYL MAMMETGELDIYEV]
+
+- IDENTITY: Computer Science Student at Eötvös Loránd University (ELTE) and Software Developer.
+- EDUCATION:
+    * B.Sc. in Computer Science, ELTE, Budapest (Sep 2025–Present).
+    * Software Development Course, Günbatar Şapagy (Mar 2021–Feb 2025).
+- WORK EXPERIENCE:
+    * Freelance IT & Cybersecurity (Mar 2022–Aug 2025): Hosted and managed Ubuntu Linux VPS, deploying VPN solutions and custom scripts for 200+ clients to enhance privacy.
+    * Web Developer at IOSPO (Apr 2025–Aug 2025): Built student/admin portals, full CRUD system, and managed MySQL for 500+ students.
+    * Software Developer at Günbatar Şapagy (Jan 2024–Feb 2025): Led team for a full-stack Laravel/PHP management app.
+    * Android Developer: Launched a Java-based app on Google Play Store with Firebase integration.
+- SKILLS:
+    * Languages: Java, JavaScript, Kotlin, PHP.
+    * Tools: Linux (Ubuntu), Git, Android Studio, Figma.
+    * Frameworks: Laravel, React JS, Jetpack Compose.
+    * Databases: MySQL, Firebase, MongoDB.
+- CONTACT: smiletechweb@gmail.com | https://linkedin.com/in/ysmayyldev | +36205190959 - You can contact by whatsapp.
+- PORTFOLIO WEBSITE: https://smiletech.dev.
