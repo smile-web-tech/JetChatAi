@@ -130,7 +130,7 @@ fun ProfileScreen(navController: NavController) {
             val options = listOf(
                 ProfileOption(Icons.Default.Settings, "Settings") { /* Navigate to Settings */ },
                 ProfileOption(Icons.Default.Notifications, "Notifications") { /* Navigate to Notifications */ },
-                ProfileOption(Icons.Default.Help, "Support and Help") { /* Navigate to Help */ },
+                ProfileOption(Icons.Default.Help, "Info") { /* Navigate to Help */ },
                 ProfileOption(Icons.Default.ExitToApp, "Logout") {
                     com.google.firebase.Firebase.auth.signOut()
                     navController.navigate("login") {
@@ -146,7 +146,6 @@ fun ProfileScreen(navController: NavController) {
             }
         }
 
-
     }
 
 }
@@ -159,7 +158,6 @@ fun ProfileScreen(){
         navController = fakeNavController
     )
 }
-
 
 @Composable
 fun ProfileOptionRow(option: com.example.jetchatai.models.ProfileOption) {

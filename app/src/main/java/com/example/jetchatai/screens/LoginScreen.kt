@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
@@ -65,21 +68,23 @@ fun LoginScreen(
 
     val loading by viewModel.isLoading
     val error by viewModel.errorMessage
-
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier.Companion
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(scrollState)
             .background(color = LightBackground),
+
         horizontalAlignment = Alignment.Companion.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.size(24.dp))
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo",
-            modifier = Modifier.Companion.padding(32.dp)
+            modifier = Modifier.Companion.padding(top = 24.dp)
         )
-
+        Spacer(modifier = Modifier.Companion.height(5.dp))
         Text(
             text = "Welcome Back!",
             fontFamily = jakarta_bold,
@@ -123,6 +128,13 @@ fun LoginScreen(
 
                     )
 
+            )
+            Text(
+                modifier = Modifier.padding(top = 10.dp),
+                text = "* Test email: jet@gmail.com",
+                fontFamily = jakarta_regular,
+                fontSize = 14.sp,
+                color = SolakColor
             )
 
             Spacer(modifier = Modifier.Companion.height(16.dp))
@@ -171,6 +183,15 @@ fun LoginScreen(
                 ),
 
                 )
+
+
+            Text(
+                modifier = Modifier.padding(top = 10.dp),
+                text = "* Test password: jet123",
+                fontFamily = jakarta_regular,
+                fontSize = 14.sp,
+                color = SolakColor
+            )
             Spacer(modifier = Modifier.Companion.height(16.dp))
             Button(
                 onClick = {
