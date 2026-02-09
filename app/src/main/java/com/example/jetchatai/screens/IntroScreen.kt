@@ -177,17 +177,17 @@ data class OnBoardingPage(
 val pages = listOf(
     OnBoardingPage(
         imageRes = R.drawable.intro3,
-        title = "Your One - Stop name solution",
-        description = "Powered AI chat bot"
+        title = "Meet JetChat AI",
+        description = "A modern assistant built with Jetpack Compose and Gemini."
     ),
     OnBoardingPage(
         imageRes = R.drawable.intro3,
-        title = "Hana dali",
-        description = "Powered AI chat bot by Gemini"
+        title = "Smart Conversations",
+        description = "Experience the power of the Llama 3.1 and Groq integration."
     ),
     OnBoardingPage(
         imageRes = R.drawable.intro1,
-        title = "Hana dalihana",
-        description = "Powered AIII chat bot by Gemini"
+        title = "Developer Showcase",
+        description = "Designed and engineered by Ysmayyl Mammetgeldiyev."
     )
 )
