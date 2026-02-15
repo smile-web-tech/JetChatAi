@@ -7,8 +7,8 @@ plugins {
     // Keep this version (it's the UI framework, distinct from Kotlin compiler)
     id("org.jetbrains.compose") version "1.6.11"
 
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
 
 }
 

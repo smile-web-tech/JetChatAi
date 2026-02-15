@@ -1,6 +1,6 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 coreKtx = "1.17.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
@@ -15,8 +15,8 @@ foundation = "1.10.2"
 cameraCore = "1.5.3"
 animation = "1.10.2"
 ktor = "3.0.0"
-kotlinStdlib = "2.0.21"
-kotlinTest = "2.0.21"
+kotlinStdlib = "2.1.0"
+kotlinTest = "2.1.0"
 runner = "1.5.2"
 core = "1.5.0"
 
