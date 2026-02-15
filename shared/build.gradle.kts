@@ -71,8 +71,8 @@ kotlin {
 
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:2.3.12")
-            // Add Firebase BoM to resolve transitive versions for dev.gitlive Android targets
-            implementation(platform(libs.firebase.bom))
+            // Fix: Use the explicit string notation for the BoM to avoid Provider resolution issues in KMP androidMain
+            implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
         }
 
         iosMain.dependencies {
