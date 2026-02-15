@@ -1,6 +1,6 @@
 package com.example.jetchatai.data
 
-import com.example.jetchatai.viewmodels.MessageModel
+import com.example.jetchatai.shared.models.MessageModel
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -29,7 +29,11 @@ class GroqService(private val apiKey: String) {
             put("messages", buildJsonArray {
                 messages.forEach { msg ->
                     addJsonObject {
-                        put("role", if (msg.role == "user") "user" else "assistant")
+                        put("role", when(msg.role) {
+                            "user" -> "user"
+                            "assistant", "model" -> "assistant"
+                            else -> "user"
+                        })
                         put("content", msg.text)
                     }
                 }
@@ -43,7 +47,18 @@ class GroqService(private val apiKey: String) {
         }
 
         val body = response.bodyAsText()
-        return JSONObject(body).getJSONArray("choices")
+        val json = JSONObject(body)
+        
+        if (json.has("error")) {
+            val error = json.getJSONObject("error")
+            return "API Error: ${error.optString("message", "Unknown error")}"
+        }
+        
+        if (!json.has("choices")) {
+            return "Error: Unexpected API response format. Body: $body"
+        }
+        
+        return json.getJSONArray("choices")
             .getJSONObject(0).getJSONObject("message").getString("content")
     }
 }

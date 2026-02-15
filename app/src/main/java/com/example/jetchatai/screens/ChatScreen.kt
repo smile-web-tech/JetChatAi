@@ -71,7 +71,7 @@ import com.example.jetchatai.jakarta_bold
 import com.example.jetchatai.jakarta_regular
 import com.example.jetchatai.ui.theme.mainColor
 import com.example.jetchatai.viewmodels.ChatViewModel
-import com.example.jetchatai.viewmodels.MessageModel
+import com.example.jetchatai.shared.models.MessageModel
 import com.mikepenz.markdown.m3.Markdown // Standard for 2026 M3 projects
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography

@@ -55,6 +55,7 @@ android {
     }
 }
 dependencies {
+    implementation(project(":shared"))
     implementation("com.airbnb.android:lottie-compose:6.0.0")
     implementation("org.json:json:20231013")
     implementation(libs.ktor.client.core)

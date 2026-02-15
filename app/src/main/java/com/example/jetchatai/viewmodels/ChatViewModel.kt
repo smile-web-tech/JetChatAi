@@ -6,22 +6,33 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jetchatai.BuildConfig
 import com.example.jetchatai.data.GroqService
-import com.example.jetchatai.viewmodels.MessageModel
+import com.example.jetchatai.shared.models.MessageModel
 import kotlinx.coroutines.launch
 
 class ChatViewModel(application: Application) : AndroidViewModel(application) {
     private val groqService = GroqService(BuildConfig.API_KEY)
+
     val messageList = mutableStateListOf<MessageModel>()
     var isLoading by mutableStateOf(false)
 
+
     private val localKnowledge: String by lazy {
-        application.assets.open("ysm_knowledge.txt").bufferedReader().use { it.readText() }
+        try {
+            application.assets.open("ysm_knowledge.txt").bufferedReader().use { it.readText() }
+        } catch (e: Exception) {
+            "No local knowledge found."
+        }
     }
 
     fun sendMessage(userInput: String) {
         if (userInput.isBlank()) return
 
-        val userMessage = MessageModel(userInput, "user")
+        val userMessage = MessageModel(
+            text = userInput,
+            role = "user",
+            timestamp = System.currentTimeMillis()
+        )
+
         messageList.add(userMessage)
         isLoading = true
 
@@ -42,16 +53,43 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
                 val apiMessages = mutableListOf<MessageModel>()
 
-                apiMessages.add(MessageModel(systemInstructions, "user"))
-                apiMessages.add(MessageModel("Understood. I am JetChat and I will represent Ysmayyl.", "model"))
+                apiMessages.add(
+                    MessageModel(
+                        text = systemInstructions,
+                        role = "user",
+                        timestamp = System.currentTimeMillis()
+                    )
+                )
+                apiMessages.add(
+                    MessageModel(
+                        text = "Understood. I am JetChat and I will represent Ysmayyl.",
+                        role = "model",
+                        timestamp = System.currentTimeMillis()
+                    )
+                )
 
+                // Add previous chat history
                 apiMessages.addAll(messageList)
 
                 val result = groqService.getResponse(apiMessages)
-                messageList.add(MessageModel(result, "model"))
+
+                // 3. Fix: Add timestamp for the AI response
+                messageList.add(
+                    MessageModel(
+                        text = result,
+                        role = "model",
+                        timestamp = System.currentTimeMillis()
+                    )
+                )
 
             } catch (e: Exception) {
-                messageList.add(MessageModel("Error connecting to Groq API: ${e.message}", "model"))
+                messageList.add(
+                    MessageModel(
+                        text = "Error connecting to Groq API: ${e.message}",
+                        role = "model",
+                        timestamp = System.currentTimeMillis()
+                    )
+                )
             } finally {
                 isLoading = false
             }
