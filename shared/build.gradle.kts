@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
@@ -7,9 +8,8 @@ plugins {
     // Keep this version (it's the UI framework, distinct from Kotlin compiler)
     id("org.jetbrains.compose") version "1.6.11"
 
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
-
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
@@ -58,8 +58,9 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
 
-            implementation("dev.gitlive:firebase-auth:1.13.0")
-            implementation("dev.gitlive:firebase-firestore:1.13.0")
+            // Updated to 1.15.0 to fix compatibility issues with Kotlin 2.1.0 on iOS
+            implementation("dev.gitlive:firebase-auth:1.15.0")
+            implementation("dev.gitlive:firebase-firestore:1.15.0")
 
             implementation("dev.shreyaspatil.generativeai:generativeai-google:0.9.0-1.1.0")
         }
@@ -71,7 +72,7 @@ kotlin {
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:2.3.12")
             // Add Firebase BoM to resolve transitive versions for dev.gitlive Android targets
-            implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
+            implementation(platform(libs.firebase.bom))
         }
 
         iosMain.dependencies {
