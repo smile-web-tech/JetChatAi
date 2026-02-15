@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
@@ -8,6 +9,7 @@ plugins {
 
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
+
 }
 
 kotlin {
@@ -15,7 +17,6 @@ kotlin {
         namespace = "com.example.jetchatai.shared"
         compileSdk = 35
         minSdk = 24
-
         with(compilerOptions) {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
         }
@@ -29,7 +30,7 @@ kotlin {
     }
 
     val xcfName = "shared"
-
+    val xcf = XCFramework(xcfName)
     listOf(
         iosX64(),
         iosArm64(),
@@ -38,6 +39,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = xcfName
             isStatic = true
+            xcf.add(this)
         }
     }
 
