@@ -58,9 +58,9 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
 
-            // Updated to 1.15.0 to fix compatibility issues with Kotlin 2.1.0 on iOS
-            implementation("dev.gitlive:firebase-auth:1.15.0")
-            implementation("dev.gitlive:firebase-firestore:1.15.0")
+            // Updated to 2.4.0 (Latest stable for Kotlin 2.x compatibility)
+            implementation("dev.gitlive:firebase-auth:2.4.0")
+            implementation("dev.gitlive:firebase-firestore:2.4.0")
 
             implementation("dev.shreyaspatil.generativeai:generativeai-google:0.9.0-1.1.0")
         }
